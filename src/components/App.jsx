@@ -12,12 +12,14 @@ import Signup from '../containers/SignUp';
 import LogIn from '../containers/LogIn';
 import SignOut from '../containers/SignOut';
 import store from '../store';
+import Home from '../containers/Home';
 
 export default function App() {
   return (
     <Provider store={store}>
       <Router>
         <Switch>
+          <Route path="/" component={Home}/>
           <Route path="/login" component={LogIn}/>
           <Route path="/signup" component={Signup}/>
           <PrivateRoute path="/signout" component={SignOut}/>
