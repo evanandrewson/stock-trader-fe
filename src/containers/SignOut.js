@@ -8,7 +8,7 @@ function SignOut({ signOut }) {
   return (
     <button 
       onClick={() => signOut()}>
-      <img src={exitIcon} />
+      <img src={exitIcon} alt='sign out' />
     </button>
   );
 }

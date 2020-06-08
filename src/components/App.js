@@ -5,23 +5,26 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, Provider } from 'react-redux';
 import { getSessionId, getSessionLoading } from '../selectors/sessionSelectors';
 import { sessionVerify } from '../actions/sessionActions';
 import Signup from '../containers/SignUp';
 import LogIn from '../containers/LogIn';
 import SignOut from '../containers/SignOut';
+import store from '../store';
 
 export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={LogIn}/>
-        <Route path="/signup" component={Signup}/>
-        <PrivateRoute path="/signout" component={SignOut}/>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route path="/login" component={LogIn}/>
+          <Route path="/signup" component={Signup}/>
+          <PrivateRoute path="/signout" component={SignOut}/>
 
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
@@ -31,8 +34,10 @@ const PrivateRoute = ({ ...rest }) => {
   const dispatch = useDispatch();
   
   useEffect(()=> {
-    if(!sessionId) dispatch(sessionVerify());
-  }, []);
+    if(!sessionId) {
+      dispatch(sessionVerify())
+    }
+  }, [sessionId]);
   
   if(loading) return <h1>Loading...</h1>;
 

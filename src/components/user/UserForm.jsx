@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { getSessionId } from '../../selectors/sessionSelectors';
+import { getSessionId } from '../../selectors/sessionSelectors';
 // import styles from '../user/User.css';
 
 const UserForm = ({ buttonText, redirectText, redirectLink, error, handleSubmit, handleClearError }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const sessionId = useSelector(getSessionId);
+  const sessionId = useSelector(getSessionId);
 
-  // if(sessionId) return <Redirect to="/" />;
+  if(sessionId) return <Redirect to="/" />;
 
   return (
     <>
