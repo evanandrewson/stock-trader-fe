@@ -1,0 +1,1 @@
+add proptypes to home components
