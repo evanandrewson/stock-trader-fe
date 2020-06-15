@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react';
 import EquityAndBuyingPower from '../components/home/EquityAndBuyingPower';
-// import Portfolio from '../components/home/Portfolio';
+import Portfolio from '../components/home/Portfolio';
 // import History from '../components/home/History';
-import { setEquityAndBuyingPower } from '../actions/homeActions';
+import { setEquityAndBuyingPower, setPositions } from '../actions/homeActions';
 import { useDispatch, connect } from 'react-redux';
-import { getEquity, getBuyingPower } from '../selectors/homeSelectors';
+import { getEquity, getBuyingPower, getPositions } from '../selectors/homeSelectors';
 
 
-const Home = ({equity, buying_power}) => {
+const Home = ({equity, buying_power, positions}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(setEquityAndBuyingPower());
-    }, []);
+        dispatch(setPositions());
+    });
 
     return (
         <div>
             <EquityAndBuyingPower equity={equity} buyingPower={buying_power} />
-            {/* <Portfolio />
-            <History /> */}
+            <Portfolio positions={positions} />
+            {/* <History /> */}
         </div>
     );
 }
 
 const mapStateToProps = state => ({
     equity: getEquity(state),
-    buying_power: getBuyingPower(state)
+    buying_power: getBuyingPower(state),
+    positions: getPositions(state)
   });
 
   export default connect(
