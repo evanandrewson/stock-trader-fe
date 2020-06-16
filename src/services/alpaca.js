@@ -4,8 +4,8 @@ export const fetchEquityAndBuyingPower = () => {
   return fetch(`${url}/v2/account`, {
     method: 'GET',
     headers: {
-      'APCA-API-KEY-ID': process.env.ALPACA,
-      'APCA-API-SECRET-KEY': process.env.ALPACA_SECRET
+      'APCA-API-KEY-ID': process.env.REACT_APP_ALPACA,
+      'APCA-API-SECRET-KEY': process.env.REACT_APP_ALPACA_SECRET
     }
   })
     .then(res => res.json())
@@ -21,8 +21,19 @@ export const fetchPositions = () => {
   return fetch(`${url}/v2/positions`, {
     method: 'GET',
     headers: {
-      'APCA-API-KEY-ID': process.env.ALPACA,
-      'APCA-API-SECRET-KEY': process.env.ALPACA_SECRET
+      'APCA-API-KEY-ID': process.env.REACT_APP_ALPACA,
+      'APCA-API-SECRET-KEY': process.env.REACT_APP_ALPACA_SECRET
+    }
+  })
+    .then(res => res.json());
+}
+
+export const fetchOrders = () => {
+  return fetch(`${url}/v2/orders`, {
+    method: 'GET',
+    headers: {
+      'APCA-API-KEY-ID': process.env.REACT_APP_ALPACA,
+      'APCA-API-SECRET-KEY': process.env.REACT_APP_ALPACA_SECRET
     }
   })
     .then(res => res.json());

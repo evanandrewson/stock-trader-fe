@@ -3,7 +3,8 @@ import { SET_EQUITY_AND_BUYING_POWER, SET_POSITIONS } from "../actions/homeActio
 const initialState = {
   equity: null,
   buying_power: null,
-  positions: null
+  positions: [],
+  orders: []
 };
 
 export default function reducer(state = initialState, action) {
