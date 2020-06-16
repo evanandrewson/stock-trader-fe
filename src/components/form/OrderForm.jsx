@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { makeOrder } from '../../services/alpaca';
 
 const OrderForm = () => {
     const [symbol, setSymbol] = useState('');
     const [quantity, setQuantity] = useState(0);
-    const [side, setSide] = useState('');
-    const [type, setType] = useState('');
-    const [tif, setTif] = useState('');
+    const [side, setSide] = useState('buy');
+    const [type, setType] = useState('market');
+    const [tif, setTif] = useState('day');
     const [limitPrice, setLimitPrice] = useState(0);
     const [stopPrice, setStopPrice] = useState(0);
-    const [extendedHours, setExtendedHours] = useState('')
+    const [extendedHours, setExtendedHours] = useState('false')
 
     const handleChange = ({ target }) => {
         switch(target.name) {
@@ -41,8 +42,23 @@ const OrderForm = () => {
         }
     }
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        const data = {
+            symbol,
+            qty: quantity,
+            side,
+            type,
+            time_in_force: tif
+        }
+        if(limitPrice) data.limit_price = limitPrice;
+        if(stopPrice) data.stop_price = stopPrice;
+        if(extendedHours) data.extended_hours = extendedHours;
+        makeOrder(data);
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <label>
                 Symbol:<input type='text' value={symbol} name='symbol' onChange={handleChange}></input>
             </label>
@@ -73,18 +89,19 @@ const OrderForm = () => {
                     <option value='fok'>fok</option>
                 </select>
             </label>
-            <label>
+            {(type === 'limit' || type === 'stop_limit') && <label>
                 Limit Price:<input type='number' step={.01} value={limitPrice} name='limitPrice' onChange={handleChange}></input>
-            </label>
-            <label>
+            </label>}
+            {(type === 'stop' || type === 'stop_limit') &&<label>
                 Stop Price:<input type='number' step={.01} value={stopPrice} name='stopPrice' onChange={handleChange}></input>
-            </label>
-            <label>
+            </label>}
+            {type === 'limit' && tif === 'day' && <label>
                 Extended Hours:<select value={extendedHours} name='extendedHours' onChange={handleChange}>
-                    <option value='true'>true</option>
                     <option value='false'>false</option>
+                    <option value='true'>true</option>
                 </select>
-            </label>
+            </label>}
+            <button>Submit Order</button>
         </form>
     )
 }
