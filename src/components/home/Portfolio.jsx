@@ -4,7 +4,7 @@ import PortfolioItem from './PortfolioItem';
 
 const Portfolio = ({positions}) => {
     const elements = positions.map(position => {
-        return <PortfolioItem {...position} />
+        return <PortfolioItem {...position} key={position.symbol} />
     })
     return (
         <div>

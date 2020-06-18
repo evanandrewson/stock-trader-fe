@@ -18,8 +18,8 @@ const Home = ({equity, buying_power, positions, orders}) => {
     return (
         <div>
             <EquityAndBuyingPower equity={equity} buyingPower={buying_power} />
-            {/* <Portfolio positions={positions} />
-            <History orders={orders} /> */}
+            <Portfolio positions={positions} />
+            <History orders={orders} />
         </div>
     );
 }

@@ -12,7 +12,7 @@ import Signup from '../containers/SignUp';
 import LogIn from '../containers/LogIn';
 import SignOut from '../containers/SignOut';
 import store from '../store';
-// import Home from '../containers/Home';
+import Home from '../containers/Home';
 import OrderForm from './form/OrderForm';
 
 export default function App() {
@@ -20,7 +20,8 @@ export default function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/" component={OrderForm}/>
+          <Route exact path="/" component={Home}/>
+          <PrivateRoute path="/order" component={OrderForm}/>
           <Route path="/login" component={LogIn}/>
           <Route path="/signup" component={Signup}/>
           <PrivateRoute path="/signout" component={SignOut}/>
